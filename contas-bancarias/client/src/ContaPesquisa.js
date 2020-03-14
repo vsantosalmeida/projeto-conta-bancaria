@@ -86,6 +86,7 @@ class ContaPesquisa extends Component {
                     <td>
                         <ButtonGroup>
                             <Button size="sm" color="success" tag={Link} to={"/contas/" + conta.numeroConta}>Alterar</Button>
+                            <Button size="sm" color="info" tag={Link} to={"/contas/" + conta.numeroConta + "/saldo"}>Alterar Saldo</Button>
                             <Button size="sm" color="danger" onClick={() => this.remove(conta.numeroConta)}>Remover</Button>
                         </ButtonGroup>
                     </td>
@@ -102,7 +103,6 @@ class ContaPesquisa extends Component {
                         <ButtonGroup>
                             <Button size="sm" color="success" tag={Link} to={"/contas/" + conta.numeroConta}>Alterar</Button>
                             <Button size="sm" color="info" tag={Link} to={"/contas/" + conta.numeroConta + "/saldo"}>Alterar Saldo</Button>
-                            <br></br>
                             <Button size="sm" color="warning" tag={Link} to={"/contas/"+ conta.numeroConta + "/cheque-especial"}>Ativar LIS</Button>
                             <Button size="sm" color="danger" onClick={() => this.remove(conta.numeroConta)}>Remover</Button>
                         </ButtonGroup>
