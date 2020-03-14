@@ -95,3 +95,4 @@ PUT http://localhost:8080/contas/{numeroConta}/saldo
 - Validação de campos
 - Desativação de ChequeEspecial
 - Melhorias nas views
+- Conteinerizar
