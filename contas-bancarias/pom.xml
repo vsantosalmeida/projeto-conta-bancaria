@@ -16,6 +16,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+	    <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+	    <node.version>v10.13.0</node.version>
+	    <yarn.version>v1.12.1</yarn.version>		
 	</properties>
 
 	<dependencies>
@@ -69,77 +72,64 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.7.6</version>
-				<executions>
-					<execution>
-						<id>Install Node and npm ...</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<phase>generated-resources</phase>
-						<configuration>
-							<nodeVersion>v12.16.1</nodeVersion>
-							<npmVersion>6.13.4</npmVersion>
-						</configuration>
-					</execution>
-					
-					<execution>
-					<id>npm install of dependecies</id>
-					<goals>
-						<goal>npm</goal>
-					</goals>
-					<phase>generated-resources</phase>
-					<configuration>
-						<arguments>install</arguments>
-					</configuration>
-					</execution>
-					
-					<execution>
-					<id>npm build react apps</id>
-					<goals>
-						<goal>npm</goal>
-					</goals>
-					<phase>generated-resources</phase>
-					<configuration>
-						<arguments>run build</arguments>
-					</configuration>
-					</execution>
-					
-				</executions>
-				<configuration>
-					<workingDirectory>src/main/contabancariaclient</workingDirectory>
-				</configuration>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy react app to the target folder</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>target/classes/static</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/main/contabancairaclient/build</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-					
-				</executions>
-			</plugin>
-			
+				</plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>copy-resources</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>client/build</directory>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>${frontend-maven-plugin.version}</version>
+                    <configuration>
+                        <workingDirectory>client</workingDirectory>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>install node</id>
+                            <goals>
+                                <goal>install-node-and-yarn</goal>
+                            </goals>
+                            <configuration>
+                                <nodeVersion>${node.version}</nodeVersion>
+                                <yarnVersion>${yarn.version}</yarnVersion>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>yarn install</id>
+                            <goals>
+                                <goal>yarn</goal>
+                            </goals>
+                            <phase>generate-resources</phase>
+                        </execution>
+                        <execution>
+                            <id>yarn build</id>
+                            <goals>
+                                <goal>yarn</goal>
+                            </goals>
+                            <phase>compile</phase>
+                            <configuration>
+                                <arguments>build</arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+			</plugin>			
 		</plugins>
 	</build>
 

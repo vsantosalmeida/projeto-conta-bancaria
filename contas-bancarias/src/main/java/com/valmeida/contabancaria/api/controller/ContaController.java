@@ -73,6 +73,17 @@ public class ContaController {
 		return contaAssembler.toContaModel(conta);	
 	}
 	
+	@PutMapping("/{numeroConta}")
+	public ResponseEntity<?> alterarConta(@PathVariable int numeroConta, @RequestBody ContaInput contaInput) {
+		try {
+			Conta contaAtual = service.buscarConta(numeroConta);
+			contaDisassembler.copyProperties(contaInput, contaAtual);
+			return ResponseEntity.ok(service.salvarConta(contaAtual));
+		} catch (ContaNaoEncontradaException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+	}
+	
 	@PutMapping("/{numeroConta}/saldo")
 	public ResponseEntity<?> atualizarSaldo(@PathVariable int numeroConta, @RequestBody ContaAtualizaSaldoInput conta) {
 		try {

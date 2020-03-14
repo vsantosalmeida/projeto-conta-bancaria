@@ -19,25 +19,31 @@ public class ContaModelAssembler {
 	public ContaModel toContaModel(Conta conta) {
 		
 		ContaModel contaModel = new ContaModel();
-		
+		contaModel.setId(conta.getId());
 		contaModel.setNome(conta.getNome());
-		contaModel.setNumeroContaAgencia(conta.getNumeroConta() + " / " + conta.getAgencia());
+		contaModel.setNumeroConta(conta.getNumeroConta());
+		contaModel.setAgencia(conta.getAgencia());
 		contaModel.setChequeEspecialLiberado("Não liberado");
 		contaModel.setSaldo(valueFormat(conta.getSaldo()));
+		contaModel.setTaxa(conta.getTaxa());
 		
 		return contaModel;
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ContaModelChequeEspecial toContaModelChequeEspecial(Conta conta) {
 		
 		ContaModelChequeEspecial contaModel = new ContaModelChequeEspecial();
 		
+		contaModel.setId(conta.getId());
 		contaModel.setNome(conta.getNome());
-		contaModel.setNumeroContaAgencia(conta.getNumeroConta() + " / " + conta.getAgencia());
+		contaModel.setNumeroConta(conta.getNumeroConta());
+		contaModel.setAgencia(conta.getAgencia());
 		contaModel.setChequeEspecialLiberado("Liberado");
 		contaModel.setSaldo(valueFormat(conta.getSaldo()));
 		contaModel.setChequeEspecial(valueFormat(conta.getChequeEspecial()));
+		contaModel.setTaxa(conta.getTaxa());
 		
 		if(!conta.getChequeEspecial().equals("0")) {
 			

@@ -23,4 +23,8 @@ public class ContaInputDisassembler {
 		return conta;
 	}
 	
+	public void copyProperties(ContaInput contaInput, Conta conta) {
+		modelMapper.map(contaInput, conta);
+	}
+	
 }

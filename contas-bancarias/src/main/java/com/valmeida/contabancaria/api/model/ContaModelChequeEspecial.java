@@ -7,9 +7,13 @@ import lombok.Setter;
 @Setter
 public class ContaModelChequeEspecial {
 	
+	private long id;
+	
 	private String nome;
 	
-	private String numeroContaAgencia;
+	private int numeroConta;
+	
+	private int Agencia;
 	
 	private String saldo;
 	
@@ -18,4 +22,6 @@ public class ContaModelChequeEspecial {
 	private String chequeEspecial;
 	
 	private String chequeEspecialDiaSeguinte;
+	
+	private String taxa;
 }
